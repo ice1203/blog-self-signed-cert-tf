@@ -28,11 +28,12 @@ resource "aws_vpc_security_group_ingress_rule" "main_elb" {
 
 #trivy:ignore:AVD-AWS-0053
 resource "aws_lb" "main" {
-  name               = "${var.prefix}-elb"
-  internal           = true
-  security_groups    = [aws_security_group.main_elb.id]
-  load_balancer_type = "application"
-  subnets            = var.allocated_subnets
+  name                       = "${var.prefix}-elb"
+  internal                   = true
+  security_groups            = [aws_security_group.main_elb.id]
+  load_balancer_type         = "application"
+  subnets                    = var.allocated_subnets
+  drop_invalid_header_fields = true
   dynamic "access_logs" {
     for_each = var.elblog_bucket_name != "" ? [1] : []
     content {
