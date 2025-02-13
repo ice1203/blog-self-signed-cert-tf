@@ -72,17 +72,17 @@ resource "aws_acm_certificate" "main" {
 ## ルート証明書（CA証明書）
 resource "local_file" "root_ca_cert" {
   content  = tls_self_signed_cert.root_ca.cert_pem
-  filename = "${path.module}/../../envs/${var.env}/certs/root_ca.pem"
+  filename = "${path.module}/../../certs/${var.env}/root_ca.pem"
 }
 
 ## サーバー証明書（秘密鍵）
 resource "local_file" "server_key" {
   content  = tls_private_key.server.private_key_pem
-  filename = "${path.module}/../../envs/${var.env}/certs/server.key"
+  filename = "${path.module}/../../certs/${var.env}/server.key"
 }
 
 ##　サーバー証明書
 resource "local_file" "server_cert" {
   content  = tls_locally_signed_cert.server.cert_pem
-  filename = "${path.module}/../../envs/${var.env}/certs/server.pem"
+  filename = "${path.module}/../../certs/${var.env}/server.pem"
 }
